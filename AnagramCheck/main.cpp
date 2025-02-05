@@ -32,9 +32,9 @@ int main() {
   std::cin.tie(nullptr);
   std::cout.tie(nullptr);
 
-  std::string x_1;
-  std::string x_2;
-  std::cin >> x_1;
-  std::cin >> x_2;
-  AnagramCheck(x_1, x_2);
+  std::string str_1;
+  std::string str_2;
+  std::cin >> str_1;
+  std::cin >> str_2;
+  AnagramCheck(str_1, str_2);
 }
