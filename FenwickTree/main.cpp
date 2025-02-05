@@ -1,114 +1,83 @@
-#include <cmath>
+#include <cstdint>
 #include <iostream>
 #include <vector>
 
-class SparseTable {
- public:
-  SparseTable(std::vector<int32_t>& arr) {
-    int32_t power = log2(arr.size());
-    size_ = arr.size();
-    powers_.resize(size_ + 1);
+int32_t Upd(int32_t val) { return (val | (val + 1)); }
 
-    for (size_t i = 0; i < size_ + 1; ++i) {
-      powers_[i] = 0;
-    }
+int32_t Parent(int32_t val) { return ((val & (val + 1)) - 1); }
+struct FenwickTree {
+  std::vector<std::vector<std::vector<int32_t>>> tree;
+  int32_t size;
 
-    for (size_t i = 2; i < size_ + 1; ++i) {
-      powers_[i] = powers_[i / 2] + 1;
-    }
-    sp_t_.resize(power + 1);
-    id_t_.resize(power + 1);
-    for (int32_t i = 0; i < power + 1; ++i) {
-      sp_t_[i].resize(size_);
-      id_t_[i].resize(size_);
-    }
-    for (size_t i = 0; i < size_; ++i) {
-      sp_t_[0][i] = arr[i];
-      id_t_[0][i] = i;
-    }
+  FenwickTree(int32_t num) : size(num) {
+    tree.resize(num, std::vector<std::vector<int32_t>>(
+                         num, std::vector<int32_t>(num, 0)));
+  }
 
-    for (int32_t i = 1; i <= power; ++i) {
-      for (size_t j = 0; j + (1 << i) <= size_; ++j) {
-        int32_t left = sp_t_[i - 1][j];
-        int32_t right = sp_t_[i - 1][j + (1 << (i - 1))];
-        sp_t_[i][j] = std::min(left, right);
-        if (left <= right) {
-          id_t_[i][j] = id_t_[i - 1][j];
-        } else {
-          id_t_[i][j] = id_t_[i - 1][j + (1 << (i - 1))];
+  void Add(int32_t x_1, int32_t y_1, int32_t z_1, int32_t value) {
+    for (int32_t i = x_1; i < size; i = Upd(i)) {
+      for (int32_t j = y_1; j < size; j = Upd(j)) {
+        for (int32_t k = z_1; k < size; k = Upd(k)) {
+          tree[i][j][k] += value;
         }
       }
     }
   }
 
-  int32_t Min(int32_t left, int32_t right) {
-    int32_t length = right - left + 1;
-    int32_t pow_2 = powers_[length];
-    int32_t l_i = sp_t_[pow_2][left];
-    int32_t r_i = sp_t_[pow_2][right - (1 << pow_2) + 1];
-    return std::min(l_i, r_i);
+  int32_t PrefixSum(int32_t x_1, int32_t y_1, int32_t z_1) {
+    int32_t result = 0;
+    for (int32_t i = x_1; i >= 0; i = Parent(i)) {
+      for (int32_t j = y_1; j >= 0; j = Parent(j)) {
+        for (int32_t k = z_1; k >= 0; k = Parent(k)) {
+          result += tree[i][j][k];
+        }
+      }
+    }
+    return result;
   }
 
-  int32_t MinIndex(int32_t left, int32_t right) {
-    int32_t length = right - left + 1;
-    int32_t pow_2 = powers_[length];
-    int32_t l_i = sp_t_[pow_2][left];
-    int32_t r_i = sp_t_[pow_2][right - (1 << pow_2) + 1];
-    if (l_i <= r_i) {
-      return id_t_[pow_2][left];
+  void Queries() {
+    std::vector<int32_t> arr;
+    int32_t x_1 = 0;
+    int32_t y_1 = 0;
+    int32_t z_1 = 0;
+    int32_t x_2 = 0;
+    int32_t y_2 = 0;
+    int32_t z_2 = 0;
+    int32_t value = 0;
+    while (true) {
+      int32_t operation = 0;
+      std::cin >> operation;
+      if (operation == 1) {
+        std::cin >> x_1 >> y_1 >> z_1 >> value;
+        Add(x_1, y_1, z_1, value);
+      } else if (operation == 2) {
+        std::cin >> x_1 >> y_1 >> z_1 >> x_2 >> y_2 >> z_2;
+        int32_t tmp = 0;
+        int32_t tmp_1 = PrefixSum(x_2, y_2, z_2) - PrefixSum(x_1 - 1, y_2, z_2);
+        int32_t tmp_2 =
+            PrefixSum(x_1 - 1, y_1 - 1, z_2) - PrefixSum(x_2, y_1 - 1, z_2);
+        int32_t exp_1 = tmp_1 + tmp_2;
+        int32_t tmp_3 =
+            PrefixSum(x_2, y_2, z_1 - 1) - PrefixSum(x_1 - 1, y_2, z_1 - 1);
+        int32_t tmp_4 = PrefixSum(x_1 - 1, y_1 - 1, z_1 - 1) -
+                        PrefixSum(x_2, y_1 - 1, z_1 - 1);
+        int32_t exp_2 = tmp_3 + tmp_4;
+        tmp = exp_1 - exp_2;
+        arr.push_back(tmp);
+      } else if (operation == 3) {
+        break;
+      }
     }
-    return id_t_[pow_2][right - (1 << pow_2) + 1];
-  }
-
-  int32_t SecondStat(int32_t left, int32_t right) {
-    int32_t index_min = MinIndex(left, right);
-    if (left == index_min) {
-      return Min(left + 1, right);
-    }
-    if (right == index_min) {
-      return Min(left, right - 1);
-    }
-    int32_t tmp_1 = Min(left, index_min - 1);
-    int32_t tmp_2 = Min(index_min + 1, right);
-    return std::min(tmp_1, tmp_2);
-  }
-
-  void Queries(int32_t nums) {
-    int32_t left = 0;
-    int32_t right = 0;
-    std::vector<int32_t> ans;
-    while (nums > 0) {
-      int32_t tmp = 0;
-      std::cin >> left >> right;
-      tmp = SecondStat(left - 1, right - 1);
-      ans.push_back(tmp);
-      nums -= 1;
-    }
-    for (size_t i = 0; i < ans.size(); ++i) {
-      std::cout << ans[i] << '\n';
+    for (size_t i = 0; i < arr.size(); ++i) {
+      std::cout << arr[i] << '\n';
     }
   }
-
-  ~SparseTable() = default;
-
- private:
-  std::vector<std::vector<int32_t>> sp_t_;
-  std::vector<std::vector<int32_t>> id_t_;
-  std::vector<int32_t> powers_;
-  size_t size_ = 0;
 };
 
 int main() {
-  std::vector<int32_t> arr;
-  int32_t num = 0;
   int32_t size = 0;
-  std::cin >> num >> size;
-  for (int32_t i = 0; i < num; ++i) {
-    int32_t var = 0;
-    std::cin >> var;
-    arr.push_back(var);
-  }
-  SparseTable spars(arr);
-  spars.Queries(size);
+  std::cin >> size;
+  FenwickTree tree(size);
+  tree.Queries();
 }
-
