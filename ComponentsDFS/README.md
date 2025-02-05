@@ -41,18 +41,3 @@ A connected component is a maximal set of vertices such that there is a path bet
 - **Time Complexity:** O(V + E), where V is the number of vertices and E is the number of edges.
 - **Space Complexity:** O(V + E) for storing the graph and visited array.
 
-## Example Usage
-
-### **Input**
-6
-4 1 2 2 3 4 5 5 6
-
-### **Output**
-2 \
-3 \
-1 2 3  
-3 \
-4 5 6
-
-(Output indicates that there are **2 connected components, following 4 lines indicate, grouped by 2, indicate that there are 3 vertices in each connected component, followed by list of vertices which are in the connected component**.)
-
