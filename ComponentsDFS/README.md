@@ -69,5 +69,5 @@ A connected component is a maximal set of vertices such that there is a path bet
 ## Example output ##
 **First line contains K, number of connected components, and following line, for each vertex writes number of connected component to which vertex belongs to.** 
 
-2 \ 
+2 \
 1 2 2 1 1 2 2 2 2 1
