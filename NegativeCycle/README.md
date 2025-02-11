@@ -56,8 +56,7 @@ The output is one of the following:
 
 ### Time Complexity
 
-The time complexity of the Bellman-Ford algorithm is:
-$ O(V \cdot E) $
+The time complexity of the Bellman-Ford algorithm is: O(V * E)
 where:
 - `V` is the number of vertices.
 - `E` is the number of edges.
@@ -67,9 +66,7 @@ In this implementation:
 - Detecting the cycle takes **O(V \cdot E)** time.
 
 Thus, the overall time complexity is:
-$$
-O(V \cdot E)
-$$
+O(V * E)
 
 ### Space Complexity
 
@@ -79,9 +76,7 @@ The space complexity is determined by the storage requirements for the graph and
 - The `parent` and `dist` vectors require **O(V)** space each.
 
 Thus, the overall space complexity is:
-$$
 O(V^2 + E)
-$$
 
 
 #### Example Input
