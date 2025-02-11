@@ -59,6 +59,39 @@ The input consists of the following:
 The output is a single integer representing the total weight of the Minimum Spanning Tree (MST).
 
 
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of Kruskal's algorithm is dominated by the following steps:
+
+1. **Sorting the edges**: Sorting `E` edges takes **O(E log E)** time.
+2. **Union-Find operations**: Each `Find` and `Union` operation in the Union-Find data structure takes nearly constant time due to path compression and union by rank. For `E` edges, this results in **O(E α(V))** time, where `α(V)` is the inverse Ackermann function (very small and practically constant).
+
+Thus, the overall time complexity is:
+$$
+O(E \log E + E \alpha(V))
+$$
+
+In most cases, this simplifies to:
+$$
+O(E \log E)
+$$
+
+### Space Complexity
+
+The space complexity is determined by the storage requirements for the graph and the Union-Find data structure:
+
+1. **Graph representation**: The adjacency list and edge list require **O(V + E)** space.
+2. **Union-Find data structure**: The `id` and `arr` maps in the Union-Find structure require **O(V)** space.
+
+Thus, the overall space complexity is:
+$$
+O(V + E)
+$$
+
+
 #### Example Input
 4 5 \
 0 1 10 \
