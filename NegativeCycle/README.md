@@ -63,10 +63,10 @@ where:
 
 In this implementation:
 - Counting edges takes **O(V²)** time.
-- Detecting the cycle takes **O(V \cdot E)** time.
+- Detecting the cycle takes **O(V * E)** time.
 
 Thus, the overall time complexity is:
-O(V * E)
+**O(V * E)**
 
 ### Space Complexity
 
