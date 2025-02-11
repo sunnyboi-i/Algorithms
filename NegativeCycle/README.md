@@ -76,7 +76,7 @@ The space complexity is determined by the storage requirements for the graph and
 - The `parent` and `dist` vectors require **O(V)** space each.
 
 Thus, the overall space complexity is:
-O(**V^2** + E)
+O(V² + E)
 
 
 #### Example Input
