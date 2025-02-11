@@ -70,14 +70,11 @@ The time complexity of Kruskal's algorithm is dominated by the following steps:
 2. **Union-Find operations**: Each `Find` and `Union` operation in the Union-Find data structure takes nearly constant time due to path compression and union by rank. For `E` edges, this results in **O(E α(V))** time, where `α(V)` is the inverse Ackermann function (very small and practically constant).
 
 Thus, the overall time complexity is:
-$$
-O(E \log E + E \alpha(V))
-$$
+
+O(ElogE + Ealpha(V))
 
 In most cases, this simplifies to:
-$$
-O(E \log E)
-$$
+O(ElogE)
 
 ### Space Complexity
 
