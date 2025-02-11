@@ -57,9 +57,7 @@ The output is one of the following:
 ### Time Complexity
 
 The time complexity of the Bellman-Ford algorithm is:
-$$
-O(V \cdot E)
-$$
+$ O(V \cdot E) $
 where:
 - `V` is the number of vertices.
 - `E` is the number of edges.
