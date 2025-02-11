@@ -4,7 +4,7 @@ This repository contains an implementation of a **topological sorting algorithm*
 
 ## Problem Description
 
-A **topological sort** of a directed graph is a linear ordering of its vertices such that for every directed edge **(u, v)**, vertex **u** appears before vertex **v** in the ordering. **Topological sorting is only possible for Directed Acyclic Graphs (DAGs)**.
+A **topological sort** of a directed graph is a linear ordering of its vertices such that for every directed edge **(u, v)**, vertex **u** appears before vertex **v** in the ordering. **Topological sorting is only possible for Directed Acyclic Graphs**.
 
 ### Key Features
 
@@ -45,7 +45,7 @@ A **topological sort** of a directed graph is a linear ordering of its vertices 
    - Identifies back edges, indicating cycles.
 
 3. **DFS-based Topological Sorting (`DFS_v`)**:
-   - Generates a valid topological order for DAGs.
+   - Generates a valid topological order for s.
 
 4. **Main Execution (`topological_sort`)**:
    - If the graph contains a cycle, output `-1`.
