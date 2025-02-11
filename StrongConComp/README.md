@@ -1,4 +1,4 @@
-# Strongly Connected Components (SCC) Finder
+# Strongly Connected Components Finder
 
 This repository contains an implementation of **Kosaraju’s algorithm** to find the **strongly connected components** in a directed graph. The algorithm efficiently identifies SCCs using depth-first search (DFS) and graph transposition.
 
