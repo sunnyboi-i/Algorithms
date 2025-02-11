@@ -84,9 +84,7 @@ The space complexity is determined by the storage requirements for the graph and
 2. **Union-Find data structure**: The `id` and `arr` maps in the Union-Find structure require **O(V)** space.
 
 Thus, the overall space complexity is:
-$$
 O(V + E)
-$$
 
 
 #### Example Input
