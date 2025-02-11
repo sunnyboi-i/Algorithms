@@ -9,5 +9,5 @@
 To compile and run the program, use the following commands:
 
 ```bash
-g++ -std=c++17 -o mst main.cpp
+g++ -std=c++17 -o main main.cpp
 ./mst
