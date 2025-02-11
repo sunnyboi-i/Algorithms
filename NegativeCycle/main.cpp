@@ -67,6 +67,9 @@ struct Graph {
         }
       }
       std::reverse(cycle.begin(), cycle.end());
+			if (!cycle.empty() && cycle.front() == cycle.back()) {
+      	cycle.pop_back();
+      }
       std::cout << "YES\n" << cycle.size() << "\n";
       for (auto it : cycle) {
         std::cout << it + 1 << " ";
